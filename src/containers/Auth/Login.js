@@ -13,6 +13,7 @@ class Login extends Component {
         this.state = {
             username: "hieutran",
             password: "123456",
+            isShowPassword: false
         }
     }
 
@@ -31,7 +32,14 @@ class Login extends Component {
     }
 
     handleLogin = () => {
-        alert("nice")
+        console.log('username: ' + this.state.username, 'password: ' + this.state.password)
+        console.log('all state: ', this.state)
+    }
+
+    handleShowHidePassword = () => {
+        this.setState({
+            isShowPassword: !this.state.isShowPassword
+        })
     }
 
     render() {
@@ -46,10 +54,17 @@ class Login extends Component {
                             <label>User Name:</label>
                             <input value={this.state.username} type="text" className='form-control' placeholder='Enter your username' onChange={(event) => this.handleOnChangeUsername(event)}></input>
                         </div>
+
                         <div className="col-12 form-group login-input">
                             <label>Password:</label>
-                            <input value={this.state.password} type="password" className='form-control' placeholder='Enter your password' onChange={(event) => this.handleOnChangePassword(event)}></input>
+                            <div className='custom-input-password'>
+                                <input value={this.state.password} type={this.state.isShowPassword ? 'text' : 'password'} className='form-control' placeholder='Enter your password' onChange={(event) => this.handleOnChangePassword(event)}></input>
+                                <span onClick={() => { this.handleShowHidePassword() }}>
+                                    <i class={this.state.isShowPassword ? "fas fa-eye" : "fas fa-eye-slash"}></i>
+                                </span>
+                            </div>
                         </div>
+
                         <div className='col-12'>
                             <button className='btn-login' onClick={() => { this.handleLogin() }}>Login</button>
                         </div>
@@ -57,9 +72,11 @@ class Login extends Component {
                         <div className='col-12'>
                             <span className="forgot-password">Forgot your password?</span>
                         </div>
+
                         <div className='col-12 text-center mt-3'>
                             <span className="text-other-login">Or Login with:</span>
                         </div>
+
                         <div className='col-12 social-login'>
                             <i className="fab fa-google-plus-g google"></i>
                             <i className="fab fa-twitter twitter"></i>
